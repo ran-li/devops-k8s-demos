@@ -2,10 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
+  namespace: efogk8s
   labels:
     app: nginx
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: nginx
@@ -13,9 +14,14 @@ spec:
     metadata:
       labels:
         app: nginx
+        namespace: efogk8s
     spec:
       containers:
       - name: nginx
+        resources:
+          limits:
+            memory: "50Mi"
+            cpu: "20m"
         image: nginx:1.7.9
         ports:
         - containerPort: 80
